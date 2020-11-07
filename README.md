@@ -12,67 +12,20 @@ go get -u github.com/teamjorge/core-go/v1
 
 ## Overview
 
-This library aims to provide general functions that can be found in many other languages. No reflection is used and all functions are statically typed. 
+This library aims to provide general functions that can be found in many other languages. Majority of this package is statically typed, however, some generic implementations are provided for user defined structures.
 
-## Sets
+This package does not use `reflect`.
 
-### Usage
+## Features
 
-Sets currently support the following types:
+[Sets](./docs/Sets.md)
+[Slices](./docs/Slices.md)
+[Chars](./docs/Chars.md)
 
-* Strings
+## Unit Testing
 
-Example usage:
+The unit tests can be run from the root of this repository using:
 
-```go
-package main
-
-import (
-    "fmt"
-
-    "github.com/teamjorge/core-go/v1/sets"
-)
-
-func main() {
-    myStringSlice := []string{"val1", "val2", "val3"}
-    mySecondSlice := []string{"val2", "val3", "val4"}
-    s := sets.NewString(myStringSlice, mySecondSlice)
-
-    fmt.Print(s.ToSlice())
-}
-
->   ["val1", "val2", "val3", "val4"]
+```bash
+go test -cover ./...
 ```
-
-Each type of set implements the following methods:
-
-|method|usage|
-|------|-----|
-|`Add`|Adds a new element to the set|
-|`Remove`|Removes an element from the set|
-|`Empty`|Determines if the given slice is empty|
-
-Additionally, for simple distinct operations, there are functions such as `ToStringSlice`:
-
-```go
-myStringSlice := []string{"val1", "val2", "val3"}
-mySecondSlice := []string{"val2", "val3", "val4"}
-
-fmt.Print(sets.ToStringSlice(myStringSlice, mySecondSlice))
-> ["val1", "val2", "val3", "val4"]
-```
-
-### Interfaces
-
-The `sets` package does provide a generic interface called `Set` which implements the following methods:
-
-* `Empty() bool`
-
-Using the `Set` interface gives you the ability to use generic functions, such as `sets.IsEmpty(mySet)` to determine if the given set is empty.
-
-## Versioning
-
-The package is versioned to `v1` for now due to:
-
-* Generics for golang being on the horizon
-* In case there are breaking changes introduced (extremely low risk)
