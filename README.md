@@ -29,15 +29,19 @@ package main
 
 import (
     "fmt"
-    "github.com/teamjorge/core-go/v1"
+
+    "github.com/teamjorge/core-go/v1/sets"
 )
 
-myStringSlice := []string{"val1", "val2", "val3"}
-mySecondSlice := []string{"val2", "val3", "val4"}
-s := sets.NewString(myStringSlice, mySecondSlice)
+func main() {
+    myStringSlice := []string{"val1", "val2", "val3"}
+    mySecondSlice := []string{"val2", "val3", "val4"}
+    s := sets.NewString(myStringSlice, mySecondSlice)
 
-fmt.Print(s.ToSlice())
-> ["val1", "val2", "val3", "val4"]
+    fmt.Print(s.ToSlice())
+}
+
+>   ["val1", "val2", "val3", "val4"]
 ```
 
 Each type of set implements the following methods:
