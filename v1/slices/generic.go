@@ -25,7 +25,7 @@ func IsEmpty(s Slice) bool {
 //
 // 	type Persons []Person
 //
-// You would define the following:
+// You would define the following methods:
 //
 //	func (m Persons) Unpack() []interface{} {
 //		res := make([]interface{}, 0)
