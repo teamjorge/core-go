@@ -99,3 +99,8 @@ func All(in BoolSlice) bool {
 	}
 	return res
 }
+
+// Empty determines whether the slice is empty
+func (b BoolSlice) Empty() bool {
+	return len(b) == 0
+}

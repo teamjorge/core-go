@@ -6,7 +6,12 @@ import (
 	"testing"
 )
 
-func TestStringSliceForEach(t *testing.T) {
+func TestConvertString(t *testing.T) {
+	s := []string{"ha", "what"}
+	s = StringSlice(s)
+}
+
+func TestStringSlice_ForEach(t *testing.T) {
 	testCacheStrings := []string{}
 
 	type args struct {
@@ -69,7 +74,7 @@ func TestStringSliceForEach(t *testing.T) {
 	}
 }
 
-func TestStringSliceMap(t *testing.T) {
+func TestStringSlice_Map(t *testing.T) {
 	type args struct {
 		modifier func(index int, val string) string
 	}
@@ -109,7 +114,7 @@ func TestStringSliceMap(t *testing.T) {
 	}
 }
 
-func TestStringSliceFilter(t *testing.T) {
+func TestStringSlice_Filter(t *testing.T) {
 	type args struct {
 		modifier func(index int, val string) bool
 	}
@@ -159,7 +164,7 @@ func TestStringSliceFilter(t *testing.T) {
 	}
 }
 
-func TestStringSlicePop(t *testing.T) {
+func TestStringSlice_Pop(t *testing.T) {
 	type args struct {
 		index int
 	}
@@ -224,6 +229,32 @@ func TestStringSlicePop(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got1, tt.want1) {
 				t.Errorf("StringSlice.Pop() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
+
+func TestStringSlice_Empty(t *testing.T) {
+	tests := []struct {
+		name string
+		s    StringSlice
+		want bool
+	}{
+		{
+			name: "test empty false",
+			s:    []string{"this", "is"},
+			want: false,
+		},
+		{
+			name: "test empty true",
+			s:    []string{},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.s.Empty(); got != tt.want {
+				t.Errorf("StringSlice.Empty() = %v, want %v", got, tt.want)
 			}
 		})
 	}

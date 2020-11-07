@@ -5,6 +5,11 @@ import (
 	"testing"
 )
 
+func TestConvertBool(t *testing.T) {
+	b := []bool{false, true}
+	b = BoolSlice(b)
+}
+
 func TestBoolSlice_ForEach(t *testing.T) {
 	testCacheBools := []bool{}
 
@@ -300,6 +305,32 @@ func TestAll(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := All(tt.args.in); got != tt.want {
 				t.Errorf("All() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestBoolSlice_Empty(t *testing.T) {
+	tests := []struct {
+		name string
+		b    BoolSlice
+		want bool
+	}{
+		{
+			name: "test empty false",
+			b:    []bool{true, false},
+			want: false,
+		},
+		{
+			name: "test empty true",
+			b:    []bool{},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.b.Empty(); got != tt.want {
+				t.Errorf("BoolSlice.Empty() = %v, want %v", got, tt.want)
 			}
 		})
 	}

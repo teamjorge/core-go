@@ -73,3 +73,8 @@ func (s StringSlice) Pop(index int) (string, StringSlice, error) {
 
 	return item, res, nil
 }
+
+// Empty determines whether the slice is empty
+func (s StringSlice) Empty() bool {
+	return len(s) == 0
+}
