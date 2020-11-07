@@ -18,9 +18,11 @@ This package does not use `reflect`.
 
 ## Features
 
-[Sets](./docs/Sets.md)
-[Slices](./docs/Slices.md)
-[Chars](./docs/Chars.md)
+* [Sets](./docs/Sets.md)
+
+* [Slices](./docs/Slices.md)
+
+* [Chars](./docs/Chars.md)
 
 ## Unit Testing
 
