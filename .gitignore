@@ -20,7 +20,7 @@
 
 # Scratch
 core-go
-main.go
+/main.go
 
 # Misc
 
