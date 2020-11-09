@@ -19,8 +19,8 @@
 .vscode
 
 # Scratch
-core-go
-main.go
+/core-go
+**/main.go
 
 # Misc
 
