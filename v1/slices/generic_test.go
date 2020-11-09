@@ -60,12 +60,12 @@ func TestIsEmpty(t *testing.T) {
 	}{
 		{
 			name: "test is empty string set",
-			args: args{s: StringSlice{}},
+			args: args{s: String{}},
 			want: true,
 		},
 		{
 			name: "test is not empty string set",
-			args: args{s: StringSlice{"this", "is"}},
+			args: args{s: String{"this", "is"}},
 			want: false,
 		},
 	}

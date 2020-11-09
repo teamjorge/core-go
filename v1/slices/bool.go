@@ -5,27 +5,27 @@ import (
 	"fmt"
 )
 
-// BoolSlice wraps a normal bool slice to provide
+// Boolean wraps a normal bool slice to provide
 // additional helper methods.
-type BoolSlice []bool
+type Boolean []bool
 
-// ForEach iterates each item in the given BoolSlice and executes
+// ForEach iterates each item in the given BooleanSlice and executes
 // the given modifier function with it's index and value.
-func (b BoolSlice) ForEach(modifier func(index int, val bool)) {
+func (b Boolean) ForEach(modifier func(index int, val bool)) {
 	for index, value := range b {
 		modifier(index, value)
 	}
 }
 
-// Map iterates each item in the given BoolSlice.
+// Map iterates each item in the given BooleanSlice.
 //
 // On each iteration,
 // the current index and value will be passed to the modifier function.
 // The value returned will overwrite the current value at the specific
-// index in the BoolSlice.
+// index in the Boolean.
 //
-// This method does modify the BoolSlice in place.
-func (b BoolSlice) Map(modifier func(index int, val bool) bool) BoolSlice {
+// This method does modify the Boolean in place.
+func (b Boolean) Map(modifier func(index int, val bool) bool) Boolean {
 	res := make([]bool, 0)
 	for index, value := range b {
 		res = append(res, modifier(index, value))
@@ -33,15 +33,15 @@ func (b BoolSlice) Map(modifier func(index int, val bool) bool) BoolSlice {
 	return res
 }
 
-// Filter iterates each item in the given BoolSlice.
+// Filter iterates each item in the given BooleanSlice.
 //
 // On each iteration, the current index and value will be passed to the
 // modifier function. Only iterations that returned true when passed to
 // the modifier thing will be returned.
 //
-// This method does not modify the BoolSlice in place and will return
+// This method does not modify the Boolean in place and will return
 // the modified version.
-func (b BoolSlice) Filter(modifier func(index int, val bool) bool) BoolSlice {
+func (b Boolean) Filter(modifier func(index int, val bool) bool) Boolean {
 	if len(b) == 0 {
 		return b
 	}
@@ -56,11 +56,11 @@ func (b BoolSlice) Filter(modifier func(index int, val bool) bool) BoolSlice {
 	return res
 }
 
-// Pop removes an item from the given BoolSlice at given index.
+// Pop removes an item from the given BooleanSlice at given index.
 //
 // The removed element is return by Pop. An error will be returned
-// if the given index is out of bounds for the given BoolSlice.
-func (b BoolSlice) Pop(index int) (bool, BoolSlice, error) {
+// if the given index is out of bounds for the given Boolean.
+func (b Boolean) Pop(index int) (bool, Boolean, error) {
 	var item bool
 	res := make([]bool, 0)
 
@@ -80,11 +80,11 @@ func (b BoolSlice) Pop(index int) (bool, BoolSlice, error) {
 	return item, res, nil
 }
 
-// Any determines if any of the indices in the given BoolSlice have a
+// Any determines if any of the indices in the given Boolean have a
 // value of true.
 //
 // Empty slices will always return false.
-func Any(in BoolSlice) bool {
+func Any(in Boolean) bool {
 	res := false
 	for _, val := range in {
 		if val {
@@ -94,11 +94,11 @@ func Any(in BoolSlice) bool {
 	return res
 }
 
-// All determines if all of the values in the given BoolSlice have a
+// All determines if all of the values in the given Boolean have a
 // value of true.
 //
 // Empty slices will always return True.
-func All(in BoolSlice) bool {
+func All(in Boolean) bool {
 	res := true
 	for _, val := range in {
 		if !val {
@@ -109,6 +109,6 @@ func All(in BoolSlice) bool {
 }
 
 // Empty determines whether the slice is empty
-func (b BoolSlice) Empty() bool {
+func (b Boolean) Empty() bool {
 	return len(b) == 0
 }

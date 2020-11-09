@@ -7,10 +7,10 @@ import (
 
 func TestConvertBool(t *testing.T) {
 	b := []bool{false, true}
-	b = BoolSlice(b)
+	b = Boolean(b)
 }
 
-func TestBoolSlice_ForEach(t *testing.T) {
+func TestBoolean_ForEach(t *testing.T) {
 	testCacheBools := []bool{}
 
 	type args struct {
@@ -18,7 +18,7 @@ func TestBoolSlice_ForEach(t *testing.T) {
 	}
 	tests := []struct {
 		name       string
-		b          BoolSlice
+		b          Boolean
 		args       args
 		cacheItems []bool
 	}{
@@ -29,7 +29,7 @@ func TestBoolSlice_ForEach(t *testing.T) {
 					testCacheBools = append(testCacheBools, b)
 				},
 			},
-			b:          BoolSlice{true, false, true, false},
+			b:          Boolean{true, false, true, false},
 			cacheItems: []bool{true, false, true, false},
 		},
 		{
@@ -39,7 +39,7 @@ func TestBoolSlice_ForEach(t *testing.T) {
 					testCacheBools = append(testCacheBools, b)
 				},
 			},
-			b:          BoolSlice{},
+			b:          Boolean{},
 			cacheItems: []bool{},
 		},
 		{
@@ -49,7 +49,7 @@ func TestBoolSlice_ForEach(t *testing.T) {
 					testCacheBools = append(testCacheBools, !b)
 				},
 			},
-			b:          BoolSlice{true, false, true, false},
+			b:          Boolean{true, false, true, false},
 			cacheItems: []bool{false, true, false, true},
 		},
 	}
@@ -72,15 +72,15 @@ func TestBoolSlice_ForEach(t *testing.T) {
 	}
 }
 
-func TestBoolSlice_Map(t *testing.T) {
+func TestBoolean_Map(t *testing.T) {
 	type args struct {
 		modifier func(index int, val bool) bool
 	}
 	tests := []struct {
 		name string
-		b    BoolSlice
+		b    Boolean
 		args args
-		want BoolSlice
+		want Boolean
 	}{
 		{
 			name: "test bool slice map",
@@ -89,8 +89,8 @@ func TestBoolSlice_Map(t *testing.T) {
 					return b
 				},
 			},
-			b:    BoolSlice{true, false, true, false},
-			want: BoolSlice{true, false, true, false},
+			b:    Boolean{true, false, true, false},
+			want: Boolean{true, false, true, false},
 		},
 		{
 			name: "test empty bool slice map",
@@ -99,8 +99,8 @@ func TestBoolSlice_Map(t *testing.T) {
 					return b
 				},
 			},
-			b:    BoolSlice{},
-			want: BoolSlice{},
+			b:    Boolean{},
+			want: Boolean{},
 		},
 		{
 			name: "test bool slice map invert",
@@ -109,28 +109,28 @@ func TestBoolSlice_Map(t *testing.T) {
 					return !b
 				},
 			},
-			b:    BoolSlice{true, false, true, false},
-			want: BoolSlice{false, true, false, true},
+			b:    Boolean{true, false, true, false},
+			want: Boolean{false, true, false, true},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.b.Map(tt.args.modifier); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("BoolSlice.Map() = %v, want %v", got, tt.want)
+				t.Errorf("Boolean.Map() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestBoolSlice_Filter(t *testing.T) {
+func TestBoolean_Filter(t *testing.T) {
 	type args struct {
 		modifier func(index int, val bool) bool
 	}
 	tests := []struct {
 		name string
-		b    BoolSlice
+		b    Boolean
 		args args
-		want BoolSlice
+		want Boolean
 	}{
 		{
 			name: "test bool slice filter",
@@ -139,8 +139,8 @@ func TestBoolSlice_Filter(t *testing.T) {
 					return b
 				},
 			},
-			b:    BoolSlice{true, false, true, false},
-			want: BoolSlice{true, true},
+			b:    Boolean{true, false, true, false},
+			want: Boolean{true, true},
 		},
 		{
 			name: "test empty bool slice filter",
@@ -149,8 +149,8 @@ func TestBoolSlice_Filter(t *testing.T) {
 					return b
 				},
 			},
-			b:    BoolSlice{},
-			want: BoolSlice{},
+			b:    Boolean{},
+			want: Boolean{},
 		},
 		{
 			name: "test bool slice map invert",
@@ -159,69 +159,69 @@ func TestBoolSlice_Filter(t *testing.T) {
 					return !b
 				},
 			},
-			b:    BoolSlice{true, false, true, false},
-			want: BoolSlice{false, false},
+			b:    Boolean{true, false, true, false},
+			want: Boolean{false, false},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.b.Filter(tt.args.modifier); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("BoolSlice.Filter() = %v, want %v", got, tt.want)
+				t.Errorf("Boolean.Filter() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestBoolSlice_Pop(t *testing.T) {
+func TestBoolean_Pop(t *testing.T) {
 	type args struct {
 		index int
 	}
 	tests := []struct {
 		name    string
-		b       BoolSlice
+		b       Boolean
 		args    args
 		want    bool
-		want1   BoolSlice
+		want1   Boolean
 		wantErr bool
 	}{
 		{
 			name:    "test bool slice pop first",
 			args:    args{index: 0},
-			b:       BoolSlice{true, false, false, false, true, true, false, true},
+			b:       Boolean{true, false, false, false, true, true, false, true},
 			want:    true,
-			want1:   BoolSlice{false, false, false, true, true, false, true},
+			want1:   Boolean{false, false, false, true, true, false, true},
 			wantErr: false,
 		},
 		{
 			name:    "test bool slice pop last",
 			args:    args{index: 8},
-			b:       BoolSlice{true, false, true, false, true, false, true, false, false},
+			b:       Boolean{true, false, true, false, true, false, true, false, false},
 			want:    false,
-			want1:   BoolSlice{true, false, true, false, true, false, true, false},
+			want1:   Boolean{true, false, true, false, true, false, true, false},
 			wantErr: false,
 		},
 		{
 			name:    "test bool slice pop empty",
 			args:    args{index: 0},
-			b:       BoolSlice{},
+			b:       Boolean{},
 			want:    false,
-			want1:   BoolSlice{},
+			want1:   Boolean{},
 			wantErr: true,
 		},
 		{
 			name:    "test bool slice pop out of bounds -1",
 			args:    args{index: -1},
-			b:       BoolSlice{false, false, false},
+			b:       Boolean{false, false, false},
 			want:    false,
-			want1:   BoolSlice{},
+			want1:   Boolean{},
 			wantErr: true,
 		},
 		{
 			name:    "test bool slice pop out of bounds 10",
 			args:    args{index: 10},
-			b:       BoolSlice{false, false, false},
+			b:       Boolean{false, false, false},
 			want:    false,
-			want1:   BoolSlice{},
+			want1:   Boolean{},
 			wantErr: true,
 		},
 	}
@@ -229,14 +229,14 @@ func TestBoolSlice_Pop(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, got1, err := tt.b.Pop(tt.args.index)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("BoolSlice.Pop() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Boolean.Pop() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("BoolSlice.Pop() got = %v, want %v", got, tt.want)
+				t.Errorf("Boolean.Pop() got = %v, want %v", got, tt.want)
 			}
 			if !reflect.DeepEqual(got1, tt.want1) {
-				t.Errorf("BoolSlice.Pop() got1 = %v, want %v", got1, tt.want1)
+				t.Errorf("Boolean.Pop() got1 = %v, want %v", got1, tt.want1)
 			}
 		})
 	}
@@ -244,7 +244,7 @@ func TestBoolSlice_Pop(t *testing.T) {
 
 func TestAny(t *testing.T) {
 	type args struct {
-		in BoolSlice
+		in Boolean
 	}
 	tests := []struct {
 		name string
@@ -253,17 +253,17 @@ func TestAny(t *testing.T) {
 	}{
 		{
 			name: "test bool slice any true",
-			args: args{in: BoolSlice{false, false, false, true, false}},
+			args: args{in: Boolean{false, false, false, true, false}},
 			want: true,
 		},
 		{
 			name: "test bool slice any false",
-			args: args{in: BoolSlice{false, false, false, false, false, false}},
+			args: args{in: Boolean{false, false, false, false, false, false}},
 			want: false,
 		},
 		{
 			name: "test bool slice any empty",
-			args: args{in: BoolSlice{}},
+			args: args{in: Boolean{}},
 			want: false,
 		},
 	}
@@ -278,7 +278,7 @@ func TestAny(t *testing.T) {
 
 func TestAll(t *testing.T) {
 	type args struct {
-		in BoolSlice
+		in Boolean
 	}
 	tests := []struct {
 		name string
@@ -287,17 +287,17 @@ func TestAll(t *testing.T) {
 	}{
 		{
 			name: "test bool slice all true",
-			args: args{in: BoolSlice{true, true, true, true, true}},
+			args: args{in: Boolean{true, true, true, true, true}},
 			want: true,
 		},
 		{
 			name: "test bool slice all false",
-			args: args{in: BoolSlice{true, true, false, true, true}},
+			args: args{in: Boolean{true, true, false, true, true}},
 			want: false,
 		},
 		{
 			name: "test bool slice all empty",
-			args: args{in: BoolSlice{}},
+			args: args{in: Boolean{}},
 			want: true,
 		},
 	}
@@ -310,10 +310,10 @@ func TestAll(t *testing.T) {
 	}
 }
 
-func TestBoolSlice_Empty(t *testing.T) {
+func TestBoolean_Empty(t *testing.T) {
 	tests := []struct {
 		name string
-		b    BoolSlice
+		b    Boolean
 		want bool
 	}{
 		{
@@ -330,7 +330,7 @@ func TestBoolSlice_Empty(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.b.Empty(); got != tt.want {
-				t.Errorf("BoolSlice.Empty() = %v, want %v", got, tt.want)
+				t.Errorf("Boolean.Empty() = %v, want %v", got, tt.want)
 			}
 		})
 	}

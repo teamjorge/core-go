@@ -63,10 +63,12 @@ func ForEach(g Generic, modifier func(index int, val interface{})) {
 	}
 }
 
-// Map iterates each item in the given Generic. On each iteration,
-// the current index and value will be passed to the modifier function.
-// The value returned will overwrite the current value at the specific
-// index in the Generic.
+// Map iterates each item in the given Generic.
+//
+// On each iteration, the current index and value will be passed to the
+// modifier function. The value returned will overwrite the current value
+// at the specific index in the Generic.
+//
 // This method does modify the Generic in place.
 func Map(g Generic, modifier func(index int, val interface{}) interface{}) Generic {
 	items := g.Unpack()
@@ -77,10 +79,12 @@ func Map(g Generic, modifier func(index int, val interface{}) interface{}) Gener
 	return g.Pack(res)
 }
 
-// Filter iterates each item in the given Generic. On each iteration,
-// the current index and value will be passed to the modifier function.
-// Only iterations that returned true when passed to the modifier thing
-// will be returned.
+// Filter iterates each item in the given Generic.
+//
+// On each iteration, the current index and value will be passed to the
+// modifier function. Only iterations that returned true when passed to
+// the modifier thing will be returned.
+//
 // This method does not modify the Generic in place and will return
 // the modified version
 func Filter(g Generic, modifier func(index int, val interface{}) bool) Generic {

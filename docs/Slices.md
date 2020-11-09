@@ -25,7 +25,7 @@ For the following examples, we'll assume these variables exist:
 ```go
 mySlice := []string{"this", "is", "a", "string", "slice"}
 
-stringSlice := slices.StringSlice(mySlice)
+stringSlice := slices.String(mySlice)
 ```
 
 ### ForEach
