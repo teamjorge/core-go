@@ -17,10 +17,13 @@ func (b BoolSlice) ForEach(modifier func(index int, val bool)) {
 	}
 }
 
-// Map iterates each item in the given BoolSlice. On each iteration,
+// Map iterates each item in the given BoolSlice.
+//
+// On each iteration,
 // the current index and value will be passed to the modifier function.
 // The value returned will overwrite the current value at the specific
 // index in the BoolSlice.
+//
 // This method does modify the BoolSlice in place.
 func (b BoolSlice) Map(modifier func(index int, val bool) bool) BoolSlice {
 	res := make([]bool, 0)
@@ -30,10 +33,12 @@ func (b BoolSlice) Map(modifier func(index int, val bool) bool) BoolSlice {
 	return res
 }
 
-// Filter iterates each item in the given BoolSlice. On each iteration,
-// the current index and value will be passed to the modifier function.
-// Only iterations that returned true when passed to the modifier thing
-// will be returned.
+// Filter iterates each item in the given BoolSlice.
+//
+// On each iteration, the current index and value will be passed to the
+// modifier function. Only iterations that returned true when passed to
+// the modifier thing will be returned.
+//
 // This method does not modify the BoolSlice in place and will return
 // the modified version.
 func (b BoolSlice) Filter(modifier func(index int, val bool) bool) BoolSlice {
@@ -51,9 +56,10 @@ func (b BoolSlice) Filter(modifier func(index int, val bool) bool) BoolSlice {
 	return res
 }
 
-// Pop removes an item from the given BoolSlice at given index. The removed
-// element is return by Pop. An error will be returned if the given index is out
-// of bounds for the given BoolSlice.
+// Pop removes an item from the given BoolSlice at given index.
+//
+// The removed element is return by Pop. An error will be returned
+// if the given index is out of bounds for the given BoolSlice.
 func (b BoolSlice) Pop(index int) (bool, BoolSlice, error) {
 	var item bool
 	res := make([]bool, 0)
@@ -76,6 +82,7 @@ func (b BoolSlice) Pop(index int) (bool, BoolSlice, error) {
 
 // Any determines if any of the indices in the given BoolSlice have a
 // value of true.
+//
 // Empty slices will always return false.
 func Any(in BoolSlice) bool {
 	res := false
@@ -89,6 +96,7 @@ func Any(in BoolSlice) bool {
 
 // All determines if all of the values in the given BoolSlice have a
 // value of true.
+//
 // Empty slices will always return True.
 func All(in BoolSlice) bool {
 	res := true

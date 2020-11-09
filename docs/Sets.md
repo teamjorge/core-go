@@ -1,12 +1,19 @@
 # Sets
 
-## Usage
+- [Sets](#sets)
+  - [Types](#types)
+  - [Usage](#usage)
+  - [Interfaces](#interfaces)
+
+## Types
 
 Sets currently support the following types:
 
-* Strings
+- Strings
 
-Example usage:
+## Usage
+
+The following example creates a new set from two string slices. The resulting set is then output to a string slice.
 
 ```go
 package main
@@ -50,6 +57,6 @@ fmt.Print(sets.ToStringSlice(myStringSlice, mySecondSlice))
 
 The `sets` package does provide a generic interface called `Set` which implements the following methods:
 
-* `Empty() bool`
+- `Empty() bool`
 
 Using the `Set` interface gives you the ability to use generic functions, such as `sets.IsEmpty(mySet)` to determine if the given set is empty.

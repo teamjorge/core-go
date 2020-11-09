@@ -30,10 +30,13 @@ func (s StringSlice) Map(modifier func(index int, val string) string) StringSlic
 	return res
 }
 
-// Filter iterates each item in the given StringSlice. On each iteration,
+// Filter iterates each item in the given StringSlice.
+//
+// On each iteration,
 // the current index and value will be passed to the modifier function.
 // Only iterations that returned true when passed to the modifier thing
 // will be returned.
+//
 // This method does not modify the StringSlice in place and will return
 // the modified version
 func (s StringSlice) Filter(modifier func(index int, val string) bool) StringSlice {
@@ -51,9 +54,10 @@ func (s StringSlice) Filter(modifier func(index int, val string) bool) StringSli
 	return res
 }
 
-// Pop removes an item from the given StringSlice at given index. The removed
-// element is return by Pop. An error will be returned if the given index is out
-// of bounds for the given StringSlice
+// Pop removes an item from the given StringSlice at given index.
+//
+// The removed element is return by Pop. An error will be returned
+// if the given index is out of bounds for the given StringSlice
 func (s StringSlice) Pop(index int) (string, StringSlice, error) {
 	var item string
 	res := make([]string, 0)
