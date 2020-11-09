@@ -29,5 +29,5 @@ This package does not use `reflect`.
 The unit tests can be run from the root of this repository using:
 
 ```bash
-go test -cover ./...
+go test -cover ./v1/...
 ```
