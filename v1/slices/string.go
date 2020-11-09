@@ -5,24 +5,26 @@ import (
 	"fmt"
 )
 
-// StringSlice wraps a normal string slice to provide
+// String wraps a normal string slice to provide
 // additional helper methods
-type StringSlice []string
+type String []string
 
 // ForEach iterates each item in the given StringSlice and executes
 // the given modifier function with it's index and value
-func (s StringSlice) ForEach(modifier func(index int, val string)) {
+func (s String) ForEach(modifier func(index int, val string)) {
 	for index, value := range s {
 		modifier(index, value)
 	}
 }
 
-// Map iterates each item in the given StringSlice. On each iteration,
+// Map iterates each item in the given StringSlice.
+//
+// On each iteration,
 // the current index and value will be passed to the modifier function.
 // The value returned will overwrite the current value at the specific
-// index in the StringSlice.
-// This method does modify the StringSlice in place.
-func (s StringSlice) Map(modifier func(index int, val string) string) StringSlice {
+// index in the String.
+// This method does modify the String in place.
+func (s String) Map(modifier func(index int, val string) string) String {
 	res := make([]string, 0)
 	for index, value := range s {
 		res = append(res, modifier(index, value))
@@ -37,9 +39,9 @@ func (s StringSlice) Map(modifier func(index int, val string) string) StringSlic
 // Only iterations that returned true when passed to the modifier thing
 // will be returned.
 //
-// This method does not modify the StringSlice in place and will return
+// This method does not modify the String in place and will return
 // the modified version
-func (s StringSlice) Filter(modifier func(index int, val string) bool) StringSlice {
+func (s String) Filter(modifier func(index int, val string) bool) String {
 	if len(s) == 0 {
 		return s
 	}
@@ -57,8 +59,8 @@ func (s StringSlice) Filter(modifier func(index int, val string) bool) StringSli
 // Pop removes an item from the given StringSlice at given index.
 //
 // The removed element is return by Pop. An error will be returned
-// if the given index is out of bounds for the given StringSlice
-func (s StringSlice) Pop(index int) (string, StringSlice, error) {
+// if the given index is out of bounds for the given String
+func (s String) Pop(index int) (string, String, error) {
 	var item string
 	res := make([]string, 0)
 
@@ -79,6 +81,6 @@ func (s StringSlice) Pop(index int) (string, StringSlice, error) {
 }
 
 // Empty determines whether the slice is empty
-func (s StringSlice) Empty() bool {
+func (s String) Empty() bool {
 	return len(s) == 0
 }
