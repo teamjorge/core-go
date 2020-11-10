@@ -36,11 +36,11 @@ func IsEmpty(s Slice) bool {
 //	}
 //
 //	func (m Persons) Pack(replace []interface{}) Generic {
-//		res := make([]Person, 0)
+//		res := make(Persons, 0)
 //		for _, value := range replace {
 //			res = append(res, value.(Person))
 //		}
-//		return Persons(res)
+//		return res
 //	}
 // Unpack converts the Generic instance into a interface slice.
 // This method is called during
