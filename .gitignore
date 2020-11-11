@@ -20,8 +20,12 @@
 
 # Scratch
 /core-go
-**/main.go
+/main.go
 
 # Misc
 
 *.todo
+
+# Binaries
+
+/template/template
