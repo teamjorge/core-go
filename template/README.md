@@ -5,6 +5,6 @@
 ```bash
 go build
 
-./core-go-template -pkg slices -name integer -type int -modifier i -testdata '1,2,3,4,5,6,7'
+./template -pkg slices -name integer -type int -modifier i -test-data '1,2,3,4,5' -nil-value 0
 
 ```
