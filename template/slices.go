@@ -51,8 +51,8 @@ func genSliceTemplate(name, tp, mod string) (Slice, error) {
 	}
 
 	outpath := fmt.Sprintf("%s/%s.go", sliceFilePath, strings.ToLower(sliceConfig.SliceName))
-
 	err := produceTemplate(sliceConfig, sliceTemplatePath, sliceTemplateBuilder, outpath)
+
 	return sliceConfig, err
 }
 
@@ -65,7 +65,7 @@ func genSliceTestTemplate(sliceConfig Slice, testData, nilValue string) error {
 	}
 
 	outpath := fmt.Sprintf("%s/%s_test.go", sliceFilePath, strings.ToLower(sliceTestConfig.SliceName))
-
 	err := produceTemplate(sliceTestConfig, sliceTestTemplatePath, sliceTestTemplateBuilder, outpath)
+
 	return err
 }
