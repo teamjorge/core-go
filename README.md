@@ -36,4 +36,4 @@ go test -cover ./v1/...
 
 The `template` binary provides a way to quickly generate source code for some of the concepts in the `v1` package. This can either be used in your application/package or to contribute to `core-go`.
 
-You can view the documentation [HERE](./template/README.md)
+[Template Documentation](./template/README.md)
