@@ -34,9 +34,11 @@ func main() {
 		flag.Usage()
 		os.Exit(1)
 	case "sets":
+		err = genSet(*name, *tp, *mod, *testData, *nilValue, *noTest)
 		break
 	case "slices":
 		err = genSlice(*name, *tp, *mod, *testData, *nilValue, *noTest)
+		break
 	default:
 		flag.Usage()
 		return
