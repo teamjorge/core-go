@@ -58,7 +58,7 @@ func genSet(name, tp, mod, testData, nilValue string, noTests bool) error {
 func genSetTemplate(name, tp, mod string) (Set, error) {
 	SetConfig := Set{
 		SetName:     strings.Title(name),
-		SetType:     strings.ToLower(tp),
+		SetType:     tp,
 		SetModifier: strings.ToLower(mod),
 	}
 

@@ -46,7 +46,7 @@ func genSlice(name, tp, mod, testData, nilValue string, noTests bool) error {
 func genSliceTemplate(name, tp, mod string) (Slice, error) {
 	sliceConfig := Slice{
 		SliceName:     strings.Title(name),
-		SliceType:     strings.ToLower(tp),
+		SliceType:     tp,
 		SliceModifier: strings.ToLower(mod),
 	}
 
