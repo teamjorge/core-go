@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	setsTestTemplatePath    string = "./templates/set.go.tpl"
+	setsTestTemplatePath    string = "./templates/set_test.go.tpl"
 	setsTemplatePath        string = "./templates/set.go.tpl"
 	setsFilePath            string = "../v1/sets"
 	setsTemplateBuilder     string = "Set Builder"
@@ -23,9 +23,21 @@ type Set struct {
 // SetTest defines the template for generating a new Set test file
 type SetTest struct {
 	Set
-	TestItems      string
-	TestItemsSplit []string
-	NilValue       string
+	TestItems           string
+	TestItemsSplit      []string
+	TestItemsMap        string
+	TestItemsMapWithNil string
+	NilValue            string
+}
+
+func getSetTestValueMap(s SetTest) string {
+	items := make([]string, 0)
+
+	for _, item := range s.TestItemsSplit {
+		items = append(items, fmt.Sprintf("%s: false", item))
+	}
+
+	return strings.Join(items, ", ")
 }
 
 func genSet(name, tp, mod, testData, nilValue string, noTests bool) error {
@@ -64,8 +76,13 @@ func genSetTestTemplate(SetConfig Set, testData, nilValue string) error {
 		NilValue:       nilValue,
 	}
 
+	SetTestConfig.TestItemsMap = getSetTestValueMap(SetTestConfig)
+	SetTestConfig.TestItemsMapWithNil = fmt.Sprintf(
+		"%s, %s: false", SetTestConfig.TestItemsMap, SetTestConfig.NilValue,
+	)
+
 	outpath := fmt.Sprintf("%s/%s_test.go", setsFilePath, strings.ToLower(SetTestConfig.SetName))
-	err := produceTemplate(SetTestConfig, setsTemplatePath, setsTemplateBuilder, outpath)
+	err := produceTemplate(SetTestConfig, setsTestTemplatePath, setsTemplateBuilder, outpath)
 
 	return err
 }
