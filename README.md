@@ -31,3 +31,9 @@ The unit tests can be run from the root of this repository using:
 ```bash
 go test -cover ./v1/...
 ```
+
+## Template
+
+The `template` binary provides a way to quickly generate source code for some of the concepts in the `v1` package. This can either be used in your application/package or to contribute to `core-go`.
+
+You can view the documentation [HERE](./template/README.md)
