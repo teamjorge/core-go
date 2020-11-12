@@ -16,7 +16,7 @@ func main() {
 	tp := flag.String("type", "",
 		"Golang type for the item. If generating a new Slice, all references will use the given type. This field is CASE-SENSITIVE")
 	mod := flag.String("modifier", "",
-		"Modifier to use when referencing your type. For example: If -mod s, all method receivers and other references will be named s")
+		"Modifier to use when referencing your type. For example: If -modifier s, all method receivers and other references will be named s")
 	testData := flag.String("test-data", "",
 		"Comma separated list of test data to use. Minimum of 5 items. For example: -testdata '1,231,51,23,54,111'")
 	nilValue := flag.String("nil-value", "",

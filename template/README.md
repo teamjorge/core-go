@@ -28,7 +28,7 @@ The template binary has some `flags` that are **required**:
 |`-pkg`| Options are `sets` or `slices`, depending on what you would like to generate.|
 |`-name`| Type name. For example: `-name integer` will generate a `IntegerSlice` or `IntegerSet`.|
 |`-type`| Actual type name in `go`. For example: `-type int` or `-type float64` or even `-type 'time.Time'`. **This field is case-sensitive!**.|
-|`-modifier`| Modifier to use when referencing your type. For example: If `-mod s`, all method receivers and other references will be named `s`|
+|`-modifier`| Modifier to use when referencing your type. For example: If `-modifier s`, all method receivers and other references will be named `s`|
 |`-test-data`| Comma separated list of data to use in tests. For example: `-testdata '1,231,51,23,54,111'`. You should aim to have at least 5 data items.|
 |`-nil-value`| The `nil` value for your type. For example, if we are generating for `int`, we will have a `nil` value of `0`.|
 
