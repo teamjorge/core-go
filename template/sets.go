@@ -34,32 +34,32 @@ func getSetTestValueMap(s SetTest) string {
 	items := make([]string, 0)
 
 	for _, item := range s.TestItemsSplit {
-		items = append(items, fmt.Sprintf("%s: false", item))
+		items = append(items, fmt.Sprintf("%s: struct{}{}", item))
 	}
 
 	return strings.Join(items, ", ")
 }
 
-func genSet(name, tp, mod, testData, nilValue string, noTests bool) error {
-	SetConfig, err := genSetTemplate(name, tp, mod)
+func genSet(args *templateArgs) error {
+	SetConfig, err := genSetTemplate(args)
 	if err != nil {
 		return err
 	}
 
-	if noTests {
+	if *args.noTests {
 		return nil
 	}
 
-	err = genSetTestTemplate(SetConfig, testData, nilValue)
+	err = genSetTestTemplate(SetConfig, args)
 
 	return err
 }
 
-func genSetTemplate(name, tp, mod string) (Set, error) {
+func genSetTemplate(args *templateArgs) (Set, error) {
 	SetConfig := Set{
-		SetName:     strings.Title(name),
-		SetType:     tp,
-		SetModifier: strings.ToLower(mod),
+		SetName:     strings.Title(*args.name),
+		SetType:     *args.tp,
+		SetModifier: strings.ToLower(*args.modifier),
 	}
 
 	outpath := fmt.Sprintf("%s/%s.go", setsFilePath, strings.ToLower(SetConfig.SetName))
@@ -68,17 +68,17 @@ func genSetTemplate(name, tp, mod string) (Set, error) {
 	return SetConfig, err
 }
 
-func genSetTestTemplate(SetConfig Set, testData, nilValue string) error {
+func genSetTestTemplate(SetConfig Set, args *templateArgs) error {
 	SetTestConfig := SetTest{
 		Set:            SetConfig,
-		TestItems:      testData,
-		TestItemsSplit: strings.Split(testData, ","),
-		NilValue:       nilValue,
+		TestItems:      *args.testData,
+		TestItemsSplit: strings.Split(*args.testData, ","),
+		NilValue:       *args.nilValue,
 	}
 
 	SetTestConfig.TestItemsMap = getSetTestValueMap(SetTestConfig)
 	SetTestConfig.TestItemsMapWithNil = fmt.Sprintf(
-		"%s, %s: false", SetTestConfig.TestItemsMap, SetTestConfig.NilValue,
+		"%s, %s: struct{}{}", SetTestConfig.TestItemsMap, SetTestConfig.NilValue,
 	)
 
 	outpath := fmt.Sprintf("%s/%s_test.go", setsFilePath, strings.ToLower(SetTestConfig.SetName))

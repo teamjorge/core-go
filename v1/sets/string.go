@@ -18,14 +18,14 @@ func ToStringSlice(in ...[]string) []string {
 }
 
 // String provides a type for string sets
-type String map[string]bool
+type String map[string]struct{}
 
 // NewString creates a new set of string type
 func NewString(in ...[]string) *String {
 	set := make(String, 0)
 	for _, arr := range in {
 		for _, s := range arr {
-			set[s] = false
+			set[s] = struct{}{}
 		}
 	}
 	return &set
@@ -34,7 +34,7 @@ func NewString(in ...[]string) *String {
 // Add new element(s) to the set
 func (s String) Add(in ...string) {
 	for _, i := range in {
-		s[i] = false
+		s[i] = struct{}{}
 	}
 }
 

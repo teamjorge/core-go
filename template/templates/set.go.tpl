@@ -18,14 +18,14 @@ func To{{ .SetName }}Slice(in ...[]{{ .SetType }}) []{{ .SetType }} {
 }
 
 // {{ .SetName }} provides a type for {{ .SetType }} sets
-type {{ .SetName }} map[{{ .SetType }}]bool
+type {{ .SetName }} map[{{ .SetType }}]struct{}
 
 // New{{ .SetName }} creates a new set of {{ .SetType }} type
 func New{{ .SetName }}(in ...[]{{ .SetType }}) *{{ .SetName }} {
 	set := make({{ .SetName }}, 0)
 	for _, arr := range in {
 		for _, key := range arr {
-			set[key] = false
+			set[key] = struct{}{}
 		}
 	}
 	return &set
@@ -34,7 +34,7 @@ func New{{ .SetName }}(in ...[]{{ .SetType }}) *{{ .SetName }} {
 // Add new element({{ .SetModifier }}) to the set
 func ({{ .SetModifier }} {{ .SetName }}) Add(in ...{{ .SetType }}) {
 	for _, val := range in {
-		{{ .SetModifier }}[val] = false
+		{{ .SetModifier }}[val] = struct{}{}
 	}
 }
 

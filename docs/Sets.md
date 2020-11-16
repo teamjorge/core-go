@@ -86,17 +86,17 @@ If we wanted distinct users to form part of a group based on their names, we cou
 First, we'll start by created the underlying type:
 
 ```go
-type UserSet map[User]bool
+type UserSet map[User]struct{}
 ```
 
-The pattern will always be `map[T]bool`.
+The pattern will always be `map[T]struct{}`.
 
 Next, we'll implement the three methods required by the `Generic` interface:
 
 ```go
 func (i UserSet) Add(in ...interface{}) {
     for _, x := range in {
-        i[x.(User)] = false // Cast the value of the item to your type
+        i[x.(User)] = struct{}{} // Cast the value of the item to your type
     }
 }
 

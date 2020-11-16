@@ -28,26 +28,26 @@ type SliceTest struct {
 	NilValue       string
 }
 
-func genSlice(name, tp, mod, testData, nilValue string, noTests bool) error {
-	sliceConfig, err := genSliceTemplate(name, tp, mod)
+func genSlice(args *templateArgs) error {
+	sliceConfig, err := genSliceTemplate(args)
 	if err != nil {
 		return err
 	}
 
-	if noTests {
+	if *args.noTests {
 		return nil
 	}
 
-	err = genSliceTestTemplate(sliceConfig, testData, nilValue)
+	err = genSliceTestTemplate(sliceConfig, args)
 
 	return err
 }
 
-func genSliceTemplate(name, tp, mod string) (Slice, error) {
+func genSliceTemplate(args *templateArgs) (Slice, error) {
 	sliceConfig := Slice{
-		SliceName:     strings.Title(name),
-		SliceType:     tp,
-		SliceModifier: strings.ToLower(mod),
+		SliceName:     strings.Title(*args.name),
+		SliceType:     *args.tp,
+		SliceModifier: strings.ToLower(*args.modifier),
 	}
 
 	outpath := fmt.Sprintf("%s/%s.go", sliceFilePath, strings.ToLower(sliceConfig.SliceName))
@@ -56,12 +56,12 @@ func genSliceTemplate(name, tp, mod string) (Slice, error) {
 	return sliceConfig, err
 }
 
-func genSliceTestTemplate(sliceConfig Slice, testData, nilValue string) error {
+func genSliceTestTemplate(sliceConfig Slice, args *templateArgs) error {
 	sliceTestConfig := SliceTest{
 		Slice:          sliceConfig,
-		TestItems:      testData,
-		TestItemsSplit: strings.Split(testData, ","),
-		NilValue:       nilValue,
+		TestItems:      *args.testData,
+		TestItemsSplit: strings.Split(*args.testData, ","),
+		NilValue:       *args.nilValue,
 	}
 
 	outpath := fmt.Sprintf("%s/%s_test.go", sliceFilePath, strings.ToLower(sliceTestConfig.SliceName))
