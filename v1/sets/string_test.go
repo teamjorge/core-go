@@ -68,8 +68,8 @@ func TestNewString(t *testing.T) {
 				in: [][]string{{"this", "this", "is", "is"}},
 			},
 			want: &String{
-				"this": false,
-				"is":   false,
+				"this": struct{}{},
+				"is":   struct{}{},
 			},
 		},
 		{
@@ -104,11 +104,11 @@ func TestString_Add(t *testing.T) {
 			args: args{
 				in: []string{"new"},
 			},
-			s: String{"this": false, "is": false},
+			s: String{"this": struct{}{}, "is": struct{}{}},
 			want: String{
-				"this": false,
-				"is":   false,
-				"new":  false,
+				"this": struct{}{},
+				"is":   struct{}{},
+				"new":  struct{}{},
 			},
 		},
 		{
@@ -116,10 +116,10 @@ func TestString_Add(t *testing.T) {
 			args: args{
 				in: []string{},
 			},
-			s: String{"this": false, "is": false},
+			s: String{"this": struct{}{}, "is": struct{}{}},
 			want: String{
-				"this": false,
-				"is":   false,
+				"this": struct{}{},
+				"is":   struct{}{},
 			},
 		},
 		{
@@ -127,10 +127,10 @@ func TestString_Add(t *testing.T) {
 			args: args{
 				in: []string{"this", "is"},
 			},
-			s: String{"this": false, "is": false},
+			s: String{"this": struct{}{}, "is": struct{}{}},
 			want: String{
-				"this": false,
-				"is":   false,
+				"this": struct{}{},
+				"is":   struct{}{},
 			},
 		},
 	}
@@ -159,9 +159,9 @@ func TestString_Remove(t *testing.T) {
 			args: args{
 				elem: []string{"is"},
 			},
-			s: String{"this": false, "is": false},
+			s: String{"this": struct{}{}, "is": struct{}{}},
 			want: String{
-				"this": false,
+				"this": struct{}{},
 			},
 		},
 		{
@@ -169,10 +169,10 @@ func TestString_Remove(t *testing.T) {
 			args: args{
 				elem: []string{},
 			},
-			s: String{"this": false, "is": false},
+			s: String{"this": struct{}{}, "is": struct{}{}},
 			want: String{
-				"this": false,
-				"is":   false,
+				"this": struct{}{},
+				"is":   struct{}{},
 			},
 		},
 		{
@@ -180,10 +180,10 @@ func TestString_Remove(t *testing.T) {
 			args: args{
 				elem: []string{"new"},
 			},
-			s: String{"this": false, "is": false},
+			s: String{"this": struct{}{}, "is": struct{}{}},
 			want: String{
-				"this": false,
-				"is":   false,
+				"this": struct{}{},
+				"is":   struct{}{},
 			},
 		},
 	}
@@ -205,7 +205,7 @@ func TestString_ToSlice(t *testing.T) {
 	}{
 		{
 			name: "test to slice simple",
-			s:    String{"this": false, "is": false},
+			s:    String{"this": struct{}{}, "is": struct{}{}},
 			want: []string{"is", "this"},
 		},
 		{
@@ -236,7 +236,7 @@ func TestString_Empty(t *testing.T) {
 	}{
 		{
 			name: "test empty true",
-			s:    String{"this": false, "is": false},
+			s:    String{"this": struct{}{}, "is": struct{}{}},
 			want: false,
 		},
 		{

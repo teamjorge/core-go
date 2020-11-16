@@ -18,11 +18,11 @@ type User struct {
 	Age  int
 }
 
-type UserSet map[User]bool
+type UserSet map[User]struct{}
 
 func (i UserSet) Add(in ...interface{}) {
 	for _, x := range in {
-		i[x.(User)] = false
+		i[x.(User)] = struct{}{}
 	}
 }
 
@@ -138,7 +138,7 @@ func TestAdd(t *testing.T) {
 			name: "test add no error",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
+					User{Name: "george", Age: 12}: struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "billy", Age: 9},
@@ -150,19 +150,19 @@ func TestAdd(t *testing.T) {
 			},
 			wantErr: false,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "tommy", Age: 15}:  false,
-				User{Name: "jane", Age: 17}:   false,
-				User{Name: "jane", Age: 19}:   false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "tommy", Age: 15}:  struct{}{},
+				User{Name: "jane", Age: 17}:   struct{}{},
+				User{Name: "jane", Age: 19}:   struct{}{},
 			},
 		},
 		{
 			name: "test add with error",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
+					User{Name: "george", Age: 12}: struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "billy", Age: 9},
@@ -175,7 +175,7 @@ func TestAdd(t *testing.T) {
 			},
 			wantErr: true,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
+				User{Name: "george", Age: 12}: struct{}{},
 			},
 		},
 		{
@@ -216,12 +216,12 @@ func TestDelete(t *testing.T) {
 			name: "test delete no error",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "george", Age: 12},
@@ -230,22 +230,22 @@ func TestDelete(t *testing.T) {
 			},
 			wantErr: false,
 			want: UserSet{
-				User{Name: "billy", Age: 9}:  false,
-				User{Name: "bobby", Age: 12}: false,
-				User{Name: "tommy", Age: 15}: false,
-				User{Name: "jane", Age: 19}:  false,
+				User{Name: "billy", Age: 9}:  struct{}{},
+				User{Name: "bobby", Age: 12}: struct{}{},
+				User{Name: "tommy", Age: 15}: struct{}{},
+				User{Name: "jane", Age: 19}:  struct{}{},
 			},
 		},
 		{
 			name: "test delete key does not exist",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "franky", Age: 5},
@@ -253,24 +253,24 @@ func TestDelete(t *testing.T) {
 			},
 			wantErr: false,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "tommy", Age: 15}:  false,
-				User{Name: "jane", Age: 17}:   false,
-				User{Name: "jane", Age: 19}:   false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "tommy", Age: 15}:  struct{}{},
+				User{Name: "jane", Age: 17}:   struct{}{},
+				User{Name: "jane", Age: 19}:   struct{}{},
 			},
 		},
 		{
 			name: "test delete with error",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "billy", Age: 9},
@@ -283,12 +283,12 @@ func TestDelete(t *testing.T) {
 			},
 			wantErr: true,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "tommy", Age: 15}:  false,
-				User{Name: "jane", Age: 17}:   false,
-				User{Name: "jane", Age: 19}:   false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "tommy", Age: 15}:  struct{}{},
+				User{Name: "jane", Age: 17}:   struct{}{},
+				User{Name: "jane", Age: 19}:   struct{}{},
 			},
 		},
 		{
@@ -328,8 +328,8 @@ func TestToSlice(t *testing.T) {
 			name: "test to slice",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "tommy", Age: 15}:  false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
 				},
 			},
 			want: []User{
@@ -342,9 +342,9 @@ func TestToSlice(t *testing.T) {
 			name: "test to slice same name",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "george", Age: 15}: false,
-					User{Name: "tommy", Age: 15}:  false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "george", Age: 15}: struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
 				},
 			},
 			want: []User{
@@ -399,12 +399,12 @@ func Test_rollbackAdd(t *testing.T) {
 			name: "test rollback add",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "tommy", Age: 15},
@@ -413,9 +413,9 @@ func Test_rollbackAdd(t *testing.T) {
 				},
 			},
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
 			},
 		},
 	}
@@ -444,9 +444,9 @@ func TestAddUnsafe(t *testing.T) {
 			name: "test unsafe add no error",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "tommy", Age: 15},
@@ -456,21 +456,21 @@ func TestAddUnsafe(t *testing.T) {
 			},
 			wantErr: false,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "tommy", Age: 15}:  false,
-				User{Name: "jane", Age: 17}:   false,
-				User{Name: "jane", Age: 19}:   false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "tommy", Age: 15}:  struct{}{},
+				User{Name: "jane", Age: 17}:   struct{}{},
+				User{Name: "jane", Age: 19}:   struct{}{},
 			},
 		},
 		{
 			name: "test unsafe add with error",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "tommy", Age: 15},
@@ -481,19 +481,19 @@ func TestAddUnsafe(t *testing.T) {
 			},
 			wantErr: true,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "tommy", Age: 15}:  false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "tommy", Age: 15}:  struct{}{},
 			},
 		},
 		{
 			name: "test unsafe add wrong",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
 				},
 				items: []interface{}{
 					"im totes a user",
@@ -501,26 +501,26 @@ func TestAddUnsafe(t *testing.T) {
 			},
 			wantErr: true,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
 			},
 		},
 		{
 			name: "test unsafe add nothing",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
 				},
 				items: []interface{}{},
 			},
 			wantErr: false,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
 			},
 		},
 	}
@@ -551,12 +551,12 @@ func Test_rollbackDelete(t *testing.T) {
 			name: "test rollback delete",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "tommy", Age: 15},
@@ -565,12 +565,12 @@ func Test_rollbackDelete(t *testing.T) {
 				},
 			},
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "tommy", Age: 15}:  false,
-				User{Name: "jane", Age: 17}:   false,
-				User{Name: "jane", Age: 19}:   false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "tommy", Age: 15}:  struct{}{},
+				User{Name: "jane", Age: 17}:   struct{}{},
+				User{Name: "jane", Age: 19}:   struct{}{},
 			},
 		},
 	}
@@ -599,12 +599,12 @@ func TestDeleteUnsafe(t *testing.T) {
 			name: "test unsafe delete no error",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "tommy", Age: 15},
@@ -614,21 +614,21 @@ func TestDeleteUnsafe(t *testing.T) {
 			},
 			wantErr: false,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
 			},
 		},
 		{
 			name: "test unsafe delete key does not exist",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "franky", Age: 20},
@@ -638,22 +638,22 @@ func TestDeleteUnsafe(t *testing.T) {
 			},
 			wantErr: false,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "tommy", Age: 15}:  false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "tommy", Age: 15}:  struct{}{},
 			},
 		},
 		{
 			name: "test unsafe delete with error",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{
 					User{Name: "tommy", Age: 15},
@@ -664,22 +664,22 @@ func TestDeleteUnsafe(t *testing.T) {
 			},
 			wantErr: true,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "jane", Age: 19}:   false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "jane", Age: 19}:   struct{}{},
 			},
 		},
 		{
 			name: "test unsafe delete wrong",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{
 					"im totes a user",
@@ -687,35 +687,35 @@ func TestDeleteUnsafe(t *testing.T) {
 			},
 			wantErr: true,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "tommy", Age: 15}:  false,
-				User{Name: "jane", Age: 17}:   false,
-				User{Name: "jane", Age: 19}:   false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "tommy", Age: 15}:  struct{}{},
+				User{Name: "jane", Age: 17}:   struct{}{},
+				User{Name: "jane", Age: 19}:   struct{}{},
 			},
 		},
 		{
 			name: "test unsafe delete nothing",
 			args: args{
 				g: UserSet{
-					User{Name: "george", Age: 12}: false,
-					User{Name: "billy", Age: 9}:   false,
-					User{Name: "bobby", Age: 12}:  false,
-					User{Name: "tommy", Age: 15}:  false,
-					User{Name: "jane", Age: 17}:   false,
-					User{Name: "jane", Age: 19}:   false,
+					User{Name: "george", Age: 12}: struct{}{},
+					User{Name: "billy", Age: 9}:   struct{}{},
+					User{Name: "bobby", Age: 12}:  struct{}{},
+					User{Name: "tommy", Age: 15}:  struct{}{},
+					User{Name: "jane", Age: 17}:   struct{}{},
+					User{Name: "jane", Age: 19}:   struct{}{},
 				},
 				items: []interface{}{},
 			},
 			wantErr: false,
 			want: UserSet{
-				User{Name: "george", Age: 12}: false,
-				User{Name: "billy", Age: 9}:   false,
-				User{Name: "bobby", Age: 12}:  false,
-				User{Name: "tommy", Age: 15}:  false,
-				User{Name: "jane", Age: 17}:   false,
-				User{Name: "jane", Age: 19}:   false,
+				User{Name: "george", Age: 12}: struct{}{},
+				User{Name: "billy", Age: 9}:   struct{}{},
+				User{Name: "bobby", Age: 12}:  struct{}{},
+				User{Name: "tommy", Age: 15}:  struct{}{},
+				User{Name: "jane", Age: 17}:   struct{}{},
+				User{Name: "jane", Age: 19}:   struct{}{},
 			},
 		},
 	}
