@@ -24,6 +24,13 @@ This package does not use `reflect`.
 
 * [Chars](./docs/Chars.md)
 
+## Examples
+
+This repo includes [examples](https://github.com/teamjorge/core-go/tree/main/examples) for each of the main concepts.
+
+Each directory will contain a `main` file that you can run with `go run ./examples/{pkg}/main.go`.
+
+
 ## Unit Testing
 
 The unit tests can be run from the root of this repository using:
