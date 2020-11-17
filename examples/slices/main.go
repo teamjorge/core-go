@@ -39,4 +39,67 @@ func main() {
 
 	fmt.Println(filteredStringSlice)
 	fmt.Println()
+
+	// Define our Persons
+	// See how to setup your struct below
+	friends := Persons{
+		Person{Name: "billy"},
+		Person{Name: "tommy"},
+		Person{Name: "pat"},
+	}
+
+	// Iterate each item in the friends slice and print the Person name
+	fmt.Println("ForEach():")
+	slices.ForEach(friends, func(index int, value interface{}) {
+		item := value.(Person)
+		fmt.Printf("%s ", item.Name)
+	})
+
+	fmt.Println()
+	fmt.Println()
+
+	// Iterate the friends slice and add a surname to each element.
+	fmt.Println("Map():")
+	family := slices.Map(friends, func(index int, value interface{}) interface{} {
+		item := value.(Person)
+		item.Name = item.Name + " jackson"
+		return item
+	})
+
+	fmt.Printf("%+v\n", family)
+	fmt.Println()
+
+	// Filter the slice for Persons not named "pat"
+	fmt.Println("Filter():")
+	filteredFriends := slices.Filter(friends, func(index int, val interface{}) bool {
+		item := val.(Person)
+		return item.Name != "pat"
+	})
+	fmt.Printf("%+v\n", filteredFriends)
+}
+
+// Type definition for our Person
+type Person struct {
+	Name string
+}
+
+// Define a Person slice as our own type
+type Persons []Person
+
+// Add the Unpack method to implement the slices.Generic interface
+func (m Persons) Unpack() []interface{} {
+	res := make([]interface{}, 0)
+	for _, i := range m {
+		res = append(res, i)
+	}
+	return res
+}
+
+// Add the Unpack method to implement the slices.Generic interface
+func (m Persons) Pack(replace []interface{}) slices.Generic {
+	res := make([]Person, 0)
+	for _, value := range replace {
+		res = append(res, value.(Person))
+	}
+	return Persons(res)
 }

@@ -41,6 +41,7 @@ func main() {
 	// Generic
 
 	// Create a new empty UserSet
+	// See how to setup your struct below
 	user := make(UserSet, 0)
 
 	// Add some users to the set
@@ -54,7 +55,7 @@ func main() {
 		User{Name: "tommy", Age: 15},
 		User{Name: "jane", Age: 17},
 	)
-	fmt.Println(user)
+	fmt.Printf("%+v\n", user)
 	fmt.Println()
 
 	// Delete some of the users in the set
@@ -64,13 +65,13 @@ func main() {
 		user,
 		User{Name: "billy", Age: 9},
 	)
-	fmt.Println(user)
+	fmt.Printf("%+v\n", user)
 	fmt.Println()
 
 	// Output the values in the set back to a slice
 	fmt.Println("sets.ToSlice()")
 	newUserList, _ := sets.ToSlice(user)
-	fmt.Println(newUserList.([]User)) // Cast it back to the User type
+	fmt.Printf("%+v\n", newUserList.([]User)) // Cast it back to the User type
 	fmt.Println()
 }
 
