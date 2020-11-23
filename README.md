@@ -1,6 +1,6 @@
 # core-go
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/teamjorge/core-go)](https://pkg.go.dev/github.com/teamjorge/core-go@v0.1.0) [![Documentation](https://godoc.org/github.com/teamjorge/core-go/v1?status.svg)](https://godoc.org/github.com/teamjorge/core-go/v1) [![codecov](https://codecov.io/gh/teamjorge/core-go/branch/main/graph/badge.svg?token=08QVKSEPXT)](https://codecov.io/gh/teamjorge/core-go) [![Go Report Card](https://goreportcard.com/badge/github.com/teamjorge/core-go/v1)](https://goreportcard.com/report/github.com/teamjorge/core-go/v1)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/teamjorge/core-go)](https://pkg.go.dev/github.com/teamjorge/core-go@v0.1.1) [![Documentation](https://godoc.org/github.com/teamjorge/core-go/v1?status.svg)](https://godoc.org/github.com/teamjorge/core-go/v1) [![codecov](https://codecov.io/gh/teamjorge/core-go/branch/main/graph/badge.svg?token=08QVKSEPXT)](https://codecov.io/gh/teamjorge/core-go) [![Go Report Card](https://goreportcard.com/badge/github.com/teamjorge/core-go/v1)](https://goreportcard.com/report/github.com/teamjorge/core-go/v1)
 
 Golang library for general utility functions that are common in other languages.
 
