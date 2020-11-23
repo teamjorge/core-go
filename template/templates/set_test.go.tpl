@@ -45,7 +45,7 @@ func TestTo{{ .Set.SetName }}Slice(t *testing.T) {
 			if len(got) != len(tt.want) {
 				t.Errorf("Expected a result of length %d but received %d", len(tt.want), len(got))
 			}
-            sort.Slice(got, func(i, j {{ .Set.SetType }}) bool {
+            sort.Slice(got, func(i, j int) bool {
 				return got[i] < got[j]
 			})
 			if !reflect.DeepEqual(got, tt.want) {
@@ -210,7 +210,7 @@ func Test{{ .Set.SetName }}_ToSlice(t *testing.T) {
 				t.Errorf("Expected a result of length %d but received %d", len(tt.want), len(got))
 			}
             // If sort doesn't work, add custom sorting
-            sort.Slice(got, func(i, j {{ .Set.SetType }}) bool {
+            sort.Slice(got, func(i, j int) bool {
 				return got[i] < got[j]
 			})
 			if !reflect.DeepEqual(got, tt.want) {
