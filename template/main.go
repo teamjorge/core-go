@@ -27,6 +27,8 @@ func main() {
 		"Nil value for the given type")
 	t.noTests = flag.Bool("no-tests", false,
 		"Generates without Unit Tests")
+	t.randomValue = flag.String("random-value", "",
+		"Random value for tests outside of test data")
 
 	printVersion := flag.Bool("v", false,
 		"Print the current version")
@@ -59,6 +61,6 @@ func main() {
 	}
 
 	if err != nil {
-		log.Panic(err)
+		log.Fatal(err.Error())
 	}
 }

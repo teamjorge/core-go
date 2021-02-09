@@ -145,8 +145,22 @@ func Test{{ .Slice.SliceName }}_Pop(t *testing.T) {
 		want1   {{ .Slice.SliceName }}
 		wantErr bool
 	}{
-		// TODO: Add test for popping first item
-		// TODO: Add test for popping last item
+		{
+			name:    "test {{ .Slice.SliceType }} slice pop first",
+			args:    args{index: 0},
+			{{ .Slice.SliceModifier }}: {{ .Slice.SliceName }}{ {{ .TestItems }} },
+			want:    {{ index .TestItemsSplit 0 }},
+			want1:   {{ .Slice.SliceName }}{ {{ .PoppedFirst }} },
+			wantErr: false,
+		},
+		{
+			name:    "test {{ .Slice.SliceType }} slice pop last",
+			args:    args{index: {{ .LastIndex}}},
+			{{ .Slice.SliceModifier }}: {{ .Slice.SliceName }}{ {{ .TestItems }} },
+			want:    {{ index .TestItemsSplit .LastIndex }},
+			want1:   {{ .Slice.SliceName }}{ {{ .PoppedLast }} },
+			wantErr: false,
+		},
 		{
 			name:    "test {{ .Slice.SliceType }} slice pop empty",
 			args:    args{index: 0},
@@ -210,6 +224,44 @@ func Test{{ .Slice.SliceName }}_Empty(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.{{ .Slice.SliceModifier }}.Empty(); got != tt.want {
 				t.Errorf("{{ .Slice.SliceName }}.Empty() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test{{ .Slice.SliceName }}_Contains(t *testing.T) {
+	type args struct {
+		value {{ .Slice.SliceType }}
+	}
+	tests := []struct {
+		name string
+		{{ .Slice.SliceModifier }}    {{ .Slice.SliceName }}
+		args args
+		want bool
+	}{
+		{
+			name: "test does contain",
+			{{ .Slice.SliceModifier }}:    {{ .Slice.SliceName }}{ {{ .TestItems }} },
+			args: args{value: {{ index .TestItemsSplit 2 }} },
+			want: true,
+		},
+		{
+			name: "test does not contain",
+			{{ .Slice.SliceModifier }}:    {{ .Slice.SliceName }}{ {{ .TestItems }} },
+			args: args{value: {{ .TestRandomValue }}},
+			want: false,
+		},
+		{
+			name: "test contain empty",
+			{{ .Slice.SliceModifier }}:    {{ .Slice.SliceName }}{},
+			args: args{value: {{ index .TestItemsSplit 2 }} },
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.{{ .Slice.SliceModifier }}.Contains(tt.args.value); got != tt.want {
+				t.Errorf("{{ .Slice.SliceName }}.Contains() = %v, want %v", got, tt.want)
 			}
 		})
 	}

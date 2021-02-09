@@ -335,3 +335,41 @@ func TestBoolean_Empty(t *testing.T) {
 		})
 	}
 }
+
+func TestBool_Contains(t *testing.T) {
+	type args struct {
+		value bool
+	}
+	tests := []struct {
+		name string
+		b    Boolean
+		args args
+		want bool
+	}{
+		{
+			name: "test does contain",
+			b:    Boolean{true, true, false, true, true},
+			args: args{value: false},
+			want: true,
+		},
+		{
+			name: "test does not contain",
+			b:    Boolean{true, true, true, true},
+			args: args{value: false},
+			want: false,
+		},
+		{
+			name: "test contain empty",
+			b:    Boolean{},
+			args: args{value: false},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.b.Contains(tt.args.value); got != tt.want {
+				t.Errorf("Bool.Contains() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

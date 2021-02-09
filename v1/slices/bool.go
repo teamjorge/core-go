@@ -112,3 +112,14 @@ func All(in Boolean) bool {
 func (b Boolean) Empty() bool {
 	return len(b) == 0
 }
+
+// Contains determines whether the BooleanSlice contains the given value.
+func (b Boolean) Contains(value bool) bool {
+	for _, val := range b {
+		if val == value {
+			return true
+		}
+	}
+
+	return false
+}

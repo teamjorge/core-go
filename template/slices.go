@@ -23,9 +23,13 @@ type Slice struct {
 // SliceTest defines the template for generating a new slice test file
 type SliceTest struct {
 	Slice
-	TestItems      string
-	TestItemsSplit []string
-	NilValue       string
+	TestItems       string
+	TestItemsSplit  []string
+	TestRandomValue string
+	NilValue        string
+	LastIndex       int
+	PoppedFirst     string
+	PoppedLast      string
 }
 
 func genSlice(args *templateArgs) error {
@@ -58,11 +62,16 @@ func genSliceTemplate(args *templateArgs) (Slice, error) {
 
 func genSliceTestTemplate(sliceConfig Slice, args *templateArgs) error {
 	sliceTestConfig := SliceTest{
-		Slice:          sliceConfig,
-		TestItems:      *args.testData,
-		TestItemsSplit: strings.Split(*args.testData, ","),
-		NilValue:       *args.nilValue,
+		Slice:           sliceConfig,
+		TestItems:       *args.testData,
+		TestItemsSplit:  strings.Split(*args.testData, ","),
+		NilValue:        *args.nilValue,
+		TestRandomValue: *args.randomValue,
 	}
+
+	sliceTestConfig.LastIndex = len(sliceTestConfig.TestItemsSplit) - 1
+	sliceTestConfig.PoppedFirst = strings.Join(sliceTestConfig.TestItemsSplit[1:], ",")
+	sliceTestConfig.PoppedLast = strings.Join(sliceTestConfig.TestItemsSplit[:sliceTestConfig.LastIndex], ",")
 
 	outpath := fmt.Sprintf("%s/%s_test.go", sliceFilePath, strings.ToLower(sliceTestConfig.SliceName))
 	err := produceTemplate(sliceTestConfig, sliceTestTemplatePath, sliceTestTemplateBuilder, outpath)

@@ -84,3 +84,14 @@ func (i Uinteger64) Pop(index int) (uint64, Uinteger64, error) {
 func (i Uinteger64) Empty() bool {
 	return len(i) == 0
 }
+
+// Contains determines whether the Uinteger64Slice contains the given value.
+func (i Uinteger64) Contains(value uint64) bool {
+	for _, val := range i {
+		if val == value {
+			return true
+		}
+	}
+
+	return false
+}

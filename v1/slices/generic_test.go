@@ -289,3 +289,59 @@ func TestFilter(t *testing.T) {
 		})
 	}
 }
+
+func TestContains(t *testing.T) {
+	type args struct {
+		g         Generic
+		target    interface{}
+		checkFunc func(interface{}) interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "Test Contains Person",
+			args: args{
+				g: Persons{
+					Person{Name: "billy"},
+					Person{Name: "tommy"},
+					Person{Name: "pat"},
+				},
+				checkFunc: func(val interface{}) interface{} { return val.(Person).Name },
+				target:    "billy",
+			},
+			want: true,
+		},
+		{
+			name: "Test Does Not Contain Person",
+			args: args{
+				g: Persons{
+					Person{Name: "billy"},
+					Person{Name: "tommy"},
+					Person{Name: "pat"},
+				},
+				checkFunc: func(val interface{}) interface{} { return val.(Person).Name },
+				target:    "frank",
+			},
+			want: false,
+		},
+		{
+			name: "Test Contain Empty",
+			args: args{
+				g:         Persons{},
+				checkFunc: func(val interface{}) interface{} { return val.(Person).Name },
+				target:    "frank",
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Contains(tt.args.g, tt.args.target, tt.args.checkFunc); got != tt.want {
+				t.Errorf("Contains() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

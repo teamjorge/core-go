@@ -84,3 +84,14 @@ func (i Uinteger8) Pop(index int) (uint8, Uinteger8, error) {
 func (i Uinteger8) Empty() bool {
 	return len(i) == 0
 }
+
+// Contains determines whether the Uinteger8Slice contains the given value.
+func (i Uinteger8) Contains(value uint8) bool {
+	for _, val := range i {
+		if val == value {
+			return true
+		}
+	}
+
+	return false
+}

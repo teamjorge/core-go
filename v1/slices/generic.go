@@ -97,3 +97,19 @@ func Filter(g Generic, modifier func(index int, val interface{}) bool) Generic {
 	}
 	return g.Pack(res)
 }
+
+// Contains determines if the given value exists in the Generic Slice.
+//
+// The checkFunc parameter is used to check or convert values in the generic.
+//
+// For example, we might want to check specific fields in a struct. We can use
+// the checkFunc to retrieve and return a specific field for comparison
+func Contains(g Generic, target interface{}, checkFunc func(interface{}) interface{}) bool {
+	items := g.Unpack()
+	for _, item := range items {
+		if target == checkFunc(item) {
+			return true
+		}
+	}
+	return false
+}

@@ -10,9 +10,10 @@ type templateArgs struct {
 	modifier *string
 
 	// Testing
-	testData *string
-	nilValue *string
-	noTests  *bool
+	testData    *string
+	nilValue    *string
+	noTests     *bool
+	randomValue *string
 }
 
 func (t templateArgs) validate() error {

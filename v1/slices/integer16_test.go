@@ -237,3 +237,41 @@ func TestInteger16_Empty(t *testing.T) {
 		})
 	}
 }
+
+func TestInteger16_Contains(t *testing.T) {
+	type args struct {
+		value int16
+	}
+	tests := []struct {
+		name string
+		i    Integer16
+		args args
+		want bool
+	}{
+		{
+			name: "test does contain",
+			i:    Integer16{1, 2, 3, 4, 5},
+			args: args{value: 3},
+			want: true,
+		},
+		{
+			name: "test does not contain",
+			i:    Integer16{1, 2, 3, 4, 5},
+			args: args{value: 12},
+			want: false,
+		},
+		{
+			name: "test contain empty",
+			i:    Integer16{},
+			args: args{value: 3},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.i.Contains(tt.args.value); got != tt.want {
+				t.Errorf("Integer16.Contains() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
