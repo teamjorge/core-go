@@ -84,3 +84,14 @@ func ({{ .SliceModifier }} {{ .SliceName }}) Pop(index int) ({{ .SliceType }}, {
 func ({{ .SliceModifier }} {{ .SliceName }}) Empty() bool {
 	return len({{ .SliceModifier }}) == 0
 }
+
+// Contains determines whether the {{ .SliceName }}Slice contains the given value.
+func ({{ .SliceModifier }} {{ .SliceName }}) Contains(value {{ .SliceType }}) bool {
+	for _, val := range {{ .SliceModifier }} {
+		if val == value {
+			return true
+		}
+	}
+
+	return false
+}

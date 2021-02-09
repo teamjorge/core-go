@@ -84,3 +84,14 @@ func (i Integer16) Pop(index int) (int16, Integer16, error) {
 func (i Integer16) Empty() bool {
 	return len(i) == 0
 }
+
+// Contains determines whether the Integer16Slice contains the given value.
+func (i Integer16) Contains(value int16) bool {
+	for _, val := range i {
+		if val == value {
+			return true
+		}
+	}
+
+	return false
+}

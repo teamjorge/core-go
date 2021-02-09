@@ -84,3 +84,14 @@ func (s String) Pop(index int) (string, String, error) {
 func (s String) Empty() bool {
 	return len(s) == 0
 }
+
+// Contains determines whether the StringSlice contains the given value.
+func (s String) Contains(value string) bool {
+	for _, val := range s {
+		if val == value {
+			return true
+		}
+	}
+
+	return false
+}

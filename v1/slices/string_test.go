@@ -259,3 +259,41 @@ func TestString_Empty(t *testing.T) {
 		})
 	}
 }
+
+func TestString_Contains(t *testing.T) {
+	type args struct {
+		value string
+	}
+	tests := []struct {
+		name string
+		s    String
+		args args
+		want bool
+	}{
+		{
+			name: "test does contain",
+			s:    String{"this", "is", "test", "value", "haha"},
+			args: args{value: "test"},
+			want: true,
+		},
+		{
+			name: "test does not contain",
+			s:    String{"this", "is", "test", "value", "haha"},
+			args: args{value: ""},
+			want: false,
+		},
+		{
+			name: "test contain empty",
+			s:    String{},
+			args: args{value: "test"},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.s.Contains(tt.args.value); got != tt.want {
+				t.Errorf("String.Contains() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

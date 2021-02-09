@@ -237,3 +237,41 @@ func TestUinteger8_Empty(t *testing.T) {
 		})
 	}
 }
+
+func TestUinteger8_Contains(t *testing.T) {
+	type args struct {
+		value uint8
+	}
+	tests := []struct {
+		name string
+		i    Uinteger8
+		args args
+		want bool
+	}{
+		{
+			name: "test does contain",
+			i:    Uinteger8{1, 2, 3, 4, 5},
+			args: args{value: 3},
+			want: true,
+		},
+		{
+			name: "test does not contain",
+			i:    Uinteger8{1, 2, 3, 4, 5},
+			args: args{value: 12},
+			want: false,
+		},
+		{
+			name: "test contain empty",
+			i:    Uinteger8{},
+			args: args{value: 3},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.i.Contains(tt.args.value); got != tt.want {
+				t.Errorf("Uinteger8.Contains() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
