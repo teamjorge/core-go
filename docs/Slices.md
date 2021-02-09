@@ -6,6 +6,7 @@
     - [ForEach](#foreach)
     - [Map](#map)
     - [Filter](#filter)
+    - [Contains](#contains)
   - [Interfaces](#interfaces)
   - [Boolean Specific](#boolean-specific)
 
@@ -76,6 +77,21 @@ Output:
 
 ```text
 [this is a]
+```
+
+### Contains
+
+```go
+exists := stringSlice.Contains("this")
+doesNotExist := stringSlice.Contains("randomvalue")
+
+fmt.Println(exists, doesNotExist)
+```
+
+Output:
+
+```text
+true false
 ```
 
 ## Interfaces
@@ -189,6 +205,29 @@ Output:
 
 ```text
 [{Name:billy} {Name:tommy}]
+```
+
+We can check if our Slice contains specific names:
+
+```go
+doesExist := slices.Contains(
+    friends,
+    "billy",
+    func(val interface{}) interface{} { return val.(Person).Name },
+)
+doesNotExist := slices.Contains(
+    friends,
+    "patrick",
+    func(val interface{}) interface{} { return val.(Person).Name },
+)
+
+fmt.Println(doesExist, doesNotExist)
+```
+
+Output:
+
+```text
+true false
 ```
 
 ## Boolean Specific

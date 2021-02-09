@@ -40,6 +40,13 @@ func main() {
 	fmt.Println(filteredStringSlice)
 	fmt.Println()
 
+	fmt.Println("stringSlice.Contains():")
+	exists := stringSlice.Contains("this")
+	doesNotExist := stringSlice.Contains("randomvalue")
+
+	fmt.Println(exists, doesNotExist)
+	fmt.Println()
+
 	// Define our Persons
 	// See how to setup your struct below
 	friends := Persons{
@@ -76,6 +83,21 @@ func main() {
 		return item.Name != "pat"
 	})
 	fmt.Printf("%+v\n", filteredFriends)
+	fmt.Println()
+
+	fmt.Println("Contains():")
+	friendDoesExist := slices.Contains(
+		friends,
+		"billy",
+		func(val interface{}) interface{} { return val.(Person).Name },
+	)
+	friendDoesNotExist := slices.Contains(
+		friends,
+		"patrick",
+		func(val interface{}) interface{} { return val.(Person).Name },
+	)
+
+	fmt.Println(friendDoesExist, friendDoesNotExist)
 }
 
 // Type definition for our Person
